@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Router as WouterRouter } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -10,17 +10,24 @@ import Logic from "@/pages/Logic";
 import Simulations from "@/pages/Simulations";
 import ScrollVerseFooter from "@/components/scrollverse-footer";
 
+
 function Router() {
+  const base = window.location.pathname.startsWith("/quantum-resonance")
+    ? "/quantum-resonance"
+    : "";
   return (
-    <Switch>
-      <Route path="/" component={Dashboard} />
-      <Route path="/layers" component={Layers} />
-      <Route path="/logic" component={Logic} />
-      <Route path="/simulations" component={Simulations} />
-      <Route component={NotFound} />
-    </Switch>
+    <WouterRouter base={base}>
+      <Switch>
+        <Route path="/" component={Dashboard} />
+        <Route path="/layers" component={Layers} />
+        <Route path="/logic" component={Logic} />
+        <Route path="/simulations" component={Simulations} />
+        <Route component={NotFound} />
+      </Switch>
+    </WouterRouter>
   );
 }
+
 
 function App() {
   return (
@@ -34,4 +41,6 @@ function App() {
   );
 }
 
+
 export default App;
+
